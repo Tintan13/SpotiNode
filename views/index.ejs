@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Spotify</h1>
+        <nav>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Upload Section -->
+        <section class="upload-section" id="upload">
+            <h2>Upload </h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="mp3file" accept="audio/mp3">
+                <button type="submit">Upload MP3</button>
+            </form>
+        </section>
+
+        <!-- Featured Playlists Section -->
+        <section class="featured-playlists" id="playlists">
+            <h2>List Songs</h2>
+            <ul>
+                <% if (songs.length > 0) { %>
+                    <% songs.forEach(song => { %>
+                        <li>
+                            <div class="song-info">
+                                <!-- SVG Icon for Music -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3v10.55A4 4 0 1 0 15 20a4 4 0 0 0 0-8 4 4 0 0 0-3-3.87V3z" />
+                                    <line x1="9" y1="20" x2="9" y2="20" />
+                                </svg>
+                                <p><%= song %></p>
+                            </div>
+                            <audio controls>
+                                <source src="/uploads/<%= song %>" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <!-- Delete Form -->
+                            <form action="/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="song" value="<%= song %>">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <p class="no-songs-message">No songs added</p>
+                <% } %>
+            </ul>
+
+
+            
+        </section>
+    </main>
+</body>
+</html>
