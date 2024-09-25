@@ -25,40 +25,25 @@
                 <button type="submit">Upload MP3</button>
             </form>
 
-
-              <!-- Database Status -->
-        <section class="db-status">
-            <h2>Database Status</h2>
-            <p>MySQL: <%= dbStatus %></p>
-        </section>
-
-
         </section>
 
 <!-- Featured Playlists Section -->
 <section class="featured-playlists" id="playlists">
     <h2>List Songs</h2>
     <ul>
-        <% if (songs.length > 0) { %>
-            <% songs.forEach(song => { %>
-                <li>
-                    <div class="song-info">
-                        <p><%= song %></p>
-                    </div>
-                    <audio controls>
-                        <source src="/uploads/<%= song %>" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <!-- Delete Form -->
-                    <form action="/delete" method="POST" style="display:inline;">
-                        <input type="hidden" name="song" value="<%= song %>">
-                        <button type="submit" class="delete-button">Delete</button>
-                    </form>
-                </li>
-            <% }); %>
-        <% } else { %>
-            <p class="no-songs-message">No songs added</p>
-        <% } %>
+        <% songs.forEach(function(song) { %>
+            <li>
+                <%= song.filename %> (ID: <%= song.id %>)
+                <audio controls>
+                    <source src="/uploads/<%= song.filename %>" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <form action="/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="song" value="<%= song.filename %>">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
     </ul>
 </section>
 
